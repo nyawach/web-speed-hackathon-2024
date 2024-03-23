@@ -2,10 +2,10 @@ import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { addUnitIfNeeded } from '../../../lib/css/addUnitIfNeeded';
+import { useMutationObserver } from '../../../pages/EpisodeDetailPage/internal/hooks/useMutationObserver';
 import { useEpisode } from '../../episode/hooks/useEpisode';
 
 import { ComicViewerPage } from './ComicViewerPage';
-import { useMutationObserver } from '../../../pages/EpisodeDetailPage/internal/hooks/useMutationObserver';
 
 const IMAGE_WIDTH = 1075;
 const IMAGE_HEIGHT = 1518;
