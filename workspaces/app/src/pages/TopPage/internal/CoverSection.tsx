@@ -5,14 +5,23 @@ import { Link } from '../../../foundation/components/Link';
 import { Text } from '../../../foundation/components/Text';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 
-import { HeroImage } from './HeroImage';
-
 const _Wrapper = styled.div`
   width: calc(100% + ${Space * 4}px);
   margin-left: -${Space * 2}px;
   margin-right: -${Space * 2}px;
   margin-top: -${Space * 2}px;
   position: relative;
+`;
+
+const _ImageWrapper = styled.div`
+  aspect-ratio: 16 / 9;
+  width: 100%;
+`;
+
+const _Image = styled.img`
+  display: block;
+  width: 100%;
+  object-fit: cover;
 `;
 
 const _SearchLink = styled(Link)`
@@ -32,7 +41,9 @@ const _SearchLink = styled(Link)`
 export const CoverSection: React.FC = () => {
   return (
     <_Wrapper>
-      <HeroImage />
+      <_ImageWrapper>
+        <_Image alt="Cyber TOON" src="/assets/hero-image.webp" />
+      </_ImageWrapper>
       <_SearchLink href="/search">
         <SvgIcon color={Color.MONO_A} height={24} type="Search" width={24} />
         <Text color={Color.MONO_A} typography={Typography.NORMAL16}>
