@@ -1,39 +1,46 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spacer, Stack } from '@chakra-ui/react';
-import { useFormik } from 'formik';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useId } from 'react';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useLogin } from '../../../features/auth/hooks/useLogin';
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required('メールアドレスを入力してください')
+    .test({
+      message: 'メールアドレスには @ を含めてください',
+      test: (v) => /^(?:[^@]*){12,}$/v.test(v) === false,
+    }),
+  password: yup
+    .string()
+    .required('パスワードを入力してください')
+    .test({
+      message: 'パスワードには記号を含めてください',
+      test: (v) => /^(?:[^\P{Letter}&&\P{Number}]*){24,}$/v.test(v) === false,
+    }),
+})
+
+type FormValues = yup.InferType<typeof schema>;
 
 export const LoginContent: React.FC = () => {
   const login = useLogin();
   const loginContentA11yId = useId();
 
-  const formik = useFormik({
-    initialValues: {
+  const {formState: { errors, touchedFields }, handleSubmit, register} = useForm<FormValues>({
+    defaultValues: {
       email: '',
       password: '',
     },
-    async onSubmit(values) {
-      login.mutate({ email: values.email, password: values.password });
-    },
-    validationSchema: yup.object().shape({
-      email: yup
-        .string()
-        .required('メールアドレスを入力してください')
-        .test({
-          message: 'メールアドレスには @ を含めてください',
-          test: (v) => /^(?:[^@]*){12,}$/v.test(v) === false,
-        }),
-      password: yup
-        .string()
-        .required('パスワードを入力してください')
-        .test({
-          message: 'パスワードには記号を含めてください',
-          test: (v) => /^(?:[^\P{Letter}&&\P{Number}]*){24,}$/v.test(v) === false,
-        }),
-    }),
-  });
+    mode: 'onChange',
+    resolver: yupResolver(schema)
+  })
+
+  const onSubmit = (values: FormValues) => {
+    login.mutate({ email: values.email, password: values.password });
+  }
 
   return (
     <Box
@@ -41,7 +48,7 @@ export const LoginContent: React.FC = () => {
       as="form"
       bg="gray.100"
       borderRadius={8}
-      onSubmit={formik.handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       p={6}
       w="100%"
     >
@@ -50,31 +57,27 @@ export const LoginContent: React.FC = () => {
           ログイン
         </Heading>
 
-        <FormControl isInvalid={formik.touched.email && formik.errors.email != null}>
+        <FormControl isInvalid={touchedFields.email && errors.email != null}>
           <FormLabel>メールアドレス</FormLabel>
           <Input
+            {...register('email')}
             bgColor="white"
             borderColor="gray.300"
-            name="email"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
             placeholder="メールアドレス"
           />
-          <FormErrorMessage role="alert">{formik.errors.email}</FormErrorMessage>
+          <FormErrorMessage role="alert">{errors.email?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={formik.touched.password && formik.errors.password != null}>
+        <FormControl isInvalid={touchedFields.password && errors.password != null}>
           <FormLabel>パスワード</FormLabel>
           <Input
+            {...register('password')}
             bgColor="white"
             borderColor="gray.300"
-            name="password"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
             placeholder="パスワード"
             type="password"
           />
-          <FormErrorMessage role="alert">{formik.errors.password}</FormErrorMessage>
+          <FormErrorMessage role="alert">{errors.password?.message}</FormErrorMessage>
         </FormControl>
 
         <Spacer />
