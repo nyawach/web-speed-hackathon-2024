@@ -18,11 +18,14 @@ self.addEventListener('activate', (ev: ExtendableEvent) => {
 });
 
 self.addEventListener('fetch', (ev: FetchEvent) => {
-  ev.respondWith(
-    queue.add(() => onFetch(ev.request), {
-      throwOnTimeout: true,
-    }),
-  );
+  const url = new URL(ev.request.url);
+  if (url.pathname.startsWith('/images/')) {
+    ev.respondWith(
+      queue.add(() => onFetch(ev.request), {
+        throwOnTimeout: true,
+      }),
+    );
+  }
 });
 
 async function onFetch(request: Request): Promise<Response> {
