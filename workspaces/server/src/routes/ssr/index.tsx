@@ -9,6 +9,7 @@ import { ServerStyleSheet } from 'styled-components';
 import { ClientApp } from '@wsh-2024/app/src/index';
 
 import { INDEX_HTML_PATH } from '../../constants/paths';
+import { publicCacheControlMiddleware } from '../../middlewares/cacheControlMiddleware';
 
 const app = new Hono();
 const htmlContent = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
@@ -20,6 +21,8 @@ async function createHTML({ body, styleTags }: { body: string; styleTags: string
 
   return content;
 }
+
+app.use('*', publicCacheControlMiddleware);
 
 app.get('*', async (c) => {
   const sheet = new ServerStyleSheet();
