@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { useState } from 'react';
 import { useInterval, useUpdate } from 'react-use';
 import styled from 'styled-components';
@@ -49,8 +48,7 @@ export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
   // 1ページの高さの候補
   const candidatePageHeight = (candidatePageWidth / IMAGE_WIDTH) * IMAGE_HEIGHT;
   // ビュアーの高さ
-  const viewerHeight = _.clamp(candidatePageHeight, MIN_VIEWER_HEIGHT, MAX_VIEWER_HEIGHT);
-
+  const viewerHeight = Math.min(Math.max(candidatePageHeight, MIN_VIEWER_HEIGHT), MAX_VIEWER_HEIGHT)
   return (
     <_Container ref={ref}>
       <_Wrapper $maxHeight={viewerHeight}>
