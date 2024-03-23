@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spacer, Stack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useId } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useLogin } from '../../../features/auth/hooks/useLogin';
@@ -25,17 +25,52 @@ const schema = yup.object().shape({
 
 type FormValues = yup.InferType<typeof schema>;
 
+const EmailField: React.FC = () => {
+  const { formState: { errors}, register } = useFormContext<FormValues>()
+  return (
+    <FormControl isInvalid={!!errors.email}>
+      <FormLabel>メールアドレス</FormLabel>
+      <Input
+        {...register('email')}
+        bgColor="white"
+        borderColor="gray.300"
+        placeholder="メールアドレス"
+      />
+      {errors.email?.message && <FormErrorMessage role="alert">{errors.email?.message}</FormErrorMessage>}
+    </FormControl>
+  );
+};
+
+const PasswordField: React.FC = () => {
+  const { formState: { errors }, register } = useFormContext<FormValues>()
+  return (
+    <FormControl isInvalid={!!errors.password}>
+      <FormLabel>パスワード</FormLabel>
+      <Input
+        {...register('password')}
+        bgColor="white"
+        borderColor="gray.300"
+        placeholder="パスワード"
+        type="password"
+      />
+      <FormErrorMessage role="alert">{errors.password?.message}</FormErrorMessage>
+    </FormControl>
+  )
+}
+
 export const LoginContent: React.FC = () => {
   const login = useLogin();
   const loginContentA11yId = useId();
+  console.log('render LoginContent')
 
-  const {formState: { errors, touchedFields }, handleSubmit, register} = useForm<FormValues>({
+  const methods = useForm<FormValues>({
     defaultValues: {
       email: '',
       password: '',
     },
-    mode: 'onChange',
-    resolver: yupResolver(schema)
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+    reValidateMode: 'onBlur',
   })
 
   const onSubmit = (values: FormValues) => {
@@ -43,49 +78,32 @@ export const LoginContent: React.FC = () => {
   }
 
   return (
-    <Box
-      aria-labelledby={loginContentA11yId}
-      as="form"
-      bg="gray.100"
-      borderRadius={8}
-      onSubmit={handleSubmit(onSubmit)}
-      p={6}
-      w="100%"
-    >
-      <Stack spacing={4}>
-        <Heading as="h1" fontSize="xl" fontWeight="bold" id={loginContentA11yId}>
-          ログイン
-        </Heading>
+    <FormProvider {...methods}>
+      <Box
+        aria-labelledby={loginContentA11yId}
+        as='form'
+        bg="gray.100"
+        borderRadius={8}
+        onSubmit={methods.handleSubmit(onSubmit)}
+        p={6}
+        w="100%"
+      >
+        <Stack spacing={4}>
+          <Heading as="h1" fontSize="xl" fontWeight="bold" id={loginContentA11yId}>
+            ログイン
+          </Heading>
 
-        <FormControl isInvalid={touchedFields.email && errors.email != null}>
-          <FormLabel>メールアドレス</FormLabel>
-          <Input
-            {...register('email')}
-            bgColor="white"
-            borderColor="gray.300"
-            placeholder="メールアドレス"
-          />
-          <FormErrorMessage role="alert">{errors.email?.message}</FormErrorMessage>
-        </FormControl>
+          <EmailField />
 
-        <FormControl isInvalid={touchedFields.password && errors.password != null}>
-          <FormLabel>パスワード</FormLabel>
-          <Input
-            {...register('password')}
-            bgColor="white"
-            borderColor="gray.300"
-            placeholder="パスワード"
-            type="password"
-          />
-          <FormErrorMessage role="alert">{errors.password?.message}</FormErrorMessage>
-        </FormControl>
+          <PasswordField />
 
-        <Spacer />
+          <Spacer />
 
-        <Button colorScheme="teal" type="submit" variant="solid">
-          ログイン
-        </Button>
-      </Stack>
-    </Box>
+          <Button colorScheme="teal" type="submit" variant="solid">
+            ログイン
+          </Button>
+        </Stack>
+      </Box>
+    </FormProvider>
   );
 };
