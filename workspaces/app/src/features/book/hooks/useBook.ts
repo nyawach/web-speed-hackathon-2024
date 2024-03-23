@@ -7,7 +7,16 @@ export function useBook(...[options]: Parameters<typeof bookApiClient.fetch>) {
     bookApiClient.fetch$$key(options),
     bookApiClient.fetch,
     {
-      ssr: false,
+      fallbackData: {
+        author: { description: '', id: '', image: { alt: '', id: '' }, name: '' },
+        description: '',
+        episodes: [],
+        id: '',
+        image: { alt: '', id: '' },
+        name: '',
+        nameRuby: '',
+      },
+      ssr: true,
       suspense: true,
     }
   )
