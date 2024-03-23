@@ -9,7 +9,8 @@ import { preloadImages } from './utils/preloadImages';
 import { registerServiceWorker } from './utils/registerServiceWorker';
 
 const main = async () => {
-  await registerServiceWorker();
+  // NOTE: don't wait for the service worker to register
+  registerServiceWorker();
   // await preloadImages();
 
   if (window.location.pathname.startsWith('/admin')) {
