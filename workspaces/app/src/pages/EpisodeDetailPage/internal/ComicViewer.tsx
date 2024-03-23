@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { useInterval, useUpdate } from 'react-use';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { ComicViewerCore } from '../../../features/viewer/components/ComicViewerCore';
 import { addUnitIfNeeded } from '../../../lib/css/addUnitIfNeeded';
+
+import { useMutationObserver } from './hooks/useMutationObserver';
 
 const IMAGE_WIDTH = 1075;
 const IMAGE_HEIGHT = 1518;
@@ -32,14 +33,23 @@ type Props = {
 };
 
 export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
-  // 画面のリサイズに合わせて再描画する
-  const rerender = useUpdate();
-  useInterval(rerender, 0);
-
-  const [el, ref] = useState<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [rect, setRect] = useState({ height: 0, width: 0 });
+  const recalc = useCallback(() => {
+    console.log('recalc')
+    const _rect = ref.current?.getBoundingClientRect()
+    setRect({...rect, height: _rect?.height ?? 0, width: _rect?.width ?? 0 });
+  }, [rect])
+  useMutationObserver(ref, recalc)
+  useEffect(() => {
+    window.addEventListener('resize', recalc);
+    return () => {
+      window.removeEventListener('resize', recalc);
+    };
+  }, [recalc]);
 
   // コンテナの幅
-  const cqw = (el?.getBoundingClientRect().width ?? 0) / 100;
+  const cqw = rect.width / 100;
 
   // 1画面に表示できるページ数（1 or 2）
   const pageCountParView = 100 * cqw <= 2 * MIN_PAGE_WIDTH ? 1 : 2;
