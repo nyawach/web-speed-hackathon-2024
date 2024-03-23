@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 
 import { Hono } from 'hono';
 
@@ -6,13 +6,13 @@ import { INDEX_HTML_PATH } from '../../constants/paths';
 
 const app = new Hono();
 
+const html = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
+
 app.get('/admin', async (c) => {
-  const html = await fs.readFile(INDEX_HTML_PATH, 'utf-8');
   return c.html(html);
 });
 
 app.get('/admin/*', async (c) => {
-  const html = await fs.readFile(INDEX_HTML_PATH, 'utf-8');
   return c.html(html);
 });
 
