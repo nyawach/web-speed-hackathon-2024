@@ -1,8 +1,6 @@
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 
-import { cacheControlMiddleware } from '../../middlewares/cacheControlMiddleware';
-
 import { authApp } from './auth';
 import { authorApp } from './authors';
 import { bookApp } from './books';
@@ -15,8 +13,6 @@ import { rankingApp } from './rankings';
 import { releaseApp } from './releases';
 
 const app = new OpenAPIHono();
-
-app.use('/api/v1', cacheControlMiddleware)
 
 app.doc31('/api/v1/specification', {
   info: {
