@@ -55,11 +55,9 @@ const FeatureCard: React.FC<Props> = ({ bookId }) => {
 
   return (
     <_Wrapper href={`/books/${bookId}`}>
-      {imageUrl != null && (
-        <_ImgWrapper>
-          <Image alt={book.image.alt} height={96} objectFit="cover" src={imageUrl} width={96} />
-        </_ImgWrapper>
-      )}
+      <_ImgWrapper>
+        <Image alt={book.image.alt} height={96} objectFit="cover" src={imageUrl} width={96} />
+      </_ImgWrapper>
 
       <_ContentWrapper>
         <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
@@ -70,11 +68,9 @@ const FeatureCard: React.FC<Props> = ({ bookId }) => {
         </Text>
 
         <Flex align="center" gap={Space * 1} justify="flex-end">
-          {authorImageUrl != null && (
-            <_AvatarWrapper>
-              <Image alt={book.author.name} height={32} objectFit="cover" src={authorImageUrl} width={32} />
-            </_AvatarWrapper>
-          )}
+          <_AvatarWrapper>
+            <Image alt={book.author.name} height={32} objectFit="cover" src={authorImageUrl} width={32} />
+          </_AvatarWrapper>
           <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
             {book.author.name}
           </Text>
@@ -84,9 +80,24 @@ const FeatureCard: React.FC<Props> = ({ bookId }) => {
   );
 };
 
+const Loading = styled.div`
+  box-sizing: border-box;
+  display: grid;
+  gap: ${Space * 1}px;
+  background-color: ${Color.MONO_A};
+  padding: ${Space * 1.5}px;
+  border-radius: ${Radius.SMALL};
+  grid-template-columns: auto 1fr;
+  flex-shrink: 0;
+  border: 1px solid ${Color.MONO_30};
+  /* NOTE: real width / height in the browser */
+  width: 330px;
+  height: 206px;
+`
+
 const FeatureCardWithSuspense: React.FC<Props> = (props) => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<Loading />}>
       <FeatureCard {...props} />
     </Suspense>
   );
