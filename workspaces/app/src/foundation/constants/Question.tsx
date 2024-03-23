@@ -3417,3 +3417,6 @@ export const QUESTION = `
 青空文庫作成ファイル：
 このファイルは、インターネットの図書館、青空文庫（http://www.aozora.gr.jp/）で作られました．入力、校正、制作にあたったのは、ボランティアの皆さんです。
 `;
+
+const Question = () => <>{QUESTION}</> 
+export default Question

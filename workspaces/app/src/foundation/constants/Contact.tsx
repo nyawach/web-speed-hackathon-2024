@@ -6142,3 +6142,6 @@ export const CONTACT = `
 
 この作品は、クリエイティブ・コモンズ「表示 2.1 日本」でライセンスされています。利用条件は、http://creativecommons.org/licenses/by/2.1/jp/を参照してください。
 `;
+
+const Comtact = () => <>{CONTACT}</> 
+export default Comtact
