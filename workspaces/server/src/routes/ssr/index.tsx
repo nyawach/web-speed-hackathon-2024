@@ -23,22 +23,15 @@ const htmlContent = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
 async function createInjectDataStr(): Promise<Record<string, unknown>> {
   const json: Record<string, unknown> = {};
 
-  await Promise.all([
-    async () => {
-      const dayOfWeek = getDayOfWeekStr(moment());
-      const releases = await releaseApiClient.fetch({ params: { dayOfWeek } });
-      json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = releases;
-    },
-    async () => {
-      const features = await featureApiClient.fetchList({ query: {} });
-      json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
-    },
-    async () => {
-      const ranking = await rankingApiClient.fetchList({ query: {} });
-      json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
-    }
+  const dayOfWeek = getDayOfWeekStr(moment());
+  const [releases, features, ranking] = await Promise.all([
+    releaseApiClient.fetch({ params: { dayOfWeek } }),
+    featureApiClient.fetchList({ query: {} }),
+    rankingApiClient.fetchList({ query: {} }),
   ])
-
+  json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = releases;
+  json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
+  json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
   return json;
 }
 
