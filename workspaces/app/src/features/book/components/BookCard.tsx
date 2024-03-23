@@ -75,7 +75,7 @@ const Loading = styled.div`
   width: 192px;
   border: 1px solid ${Color.MONO_30};
   height: 244px;
-`
+`;
 
 const BookCardWithSuspense: React.FC<Props> = (props) => {
   return (

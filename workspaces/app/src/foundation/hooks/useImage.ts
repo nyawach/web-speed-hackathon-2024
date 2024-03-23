@@ -6,5 +6,5 @@ export const useImage = ({ height, imageId, width }: { height: number; imageId: 
     height,
     imageId,
     width,
-  })
+  });
 };

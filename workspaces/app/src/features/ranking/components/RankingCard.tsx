@@ -102,7 +102,7 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
 const Loading = styled.li`
   width: 100%;
   height: 130px;
-`
+`;
 
 const RankingCardWithSuspense: React.FC<Props> = (props) => {
   return (

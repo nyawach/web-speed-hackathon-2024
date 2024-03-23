@@ -4194,5 +4194,5 @@ Du hast Diamanten und Perlen ……
 青空文庫作成ファイル：
 このファイルは、インターネットの図書館、青空文庫（https://www.aozora.gr.jp/）で作られました。入力、校正、制作にあたったのは、ボランティアの皆さんです。
 `;
-const Term = () => <>{TERM}</> 
-export default Term
+const Term = () => <>{TERM}</>;
+export default Term;

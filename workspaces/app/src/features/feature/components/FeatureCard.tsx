@@ -93,7 +93,7 @@ const Loading = styled.div`
   /* NOTE: real width / height in the browser */
   width: 330px;
   height: 206px;
-`
+`;
 
 const FeatureCardWithSuspense: React.FC<Props> = (props) => {
   return (

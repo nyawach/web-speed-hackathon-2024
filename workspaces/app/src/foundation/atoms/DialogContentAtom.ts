@@ -8,7 +8,7 @@ export const DialogContentAtom = atom(
   },
   (_get, set, content: JSX.Element | null) => {
     const isOpen = content != null;
-    const body = window.document.body
+    const body = window.document.body;
     body.style.overflow = isOpen ? 'hidden' : 'scroll';
     set(StateAtom, content);
   },

@@ -1598,5 +1598,5 @@ export const OVERVIEW = `
 
 `;
 
-const Overview = () => <>{OVERVIEW}</> 
-export default Overview
+const Overview = () => <>{OVERVIEW}</>;
+export default Overview;

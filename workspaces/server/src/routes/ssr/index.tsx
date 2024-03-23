@@ -13,16 +13,10 @@ import { INDEX_HTML_PATH } from '../../constants/paths';
 const app = new Hono();
 const htmlContent = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
 
-async function createHTML({
-  body,
-  styleTags,
-}: {
-  body: string;
-  styleTags: string;
-}): Promise<string> {
+async function createHTML({ body, styleTags }: { body: string; styleTags: string }): Promise<string> {
   const content = htmlContent
     .replaceAll('<div id="root"></div>', `<div id="root">${body}</div>`)
-    .replaceAll('<style id="tag"></style>', styleTags)
+    .replaceAll('<style id="tag"></style>', styleTags);
 
   return content;
 }
