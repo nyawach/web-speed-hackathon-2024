@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
@@ -18,25 +18,26 @@ import { getDayOfWeekStr } from '@wsh-2024/app/src/lib/date/getDayOfWeekStr';
 import { INDEX_HTML_PATH } from '../../constants/paths';
 
 const app = new Hono();
+const htmlContent = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
 
 async function createInjectDataStr(): Promise<Record<string, unknown>> {
   const json: Record<string, unknown> = {};
 
-  {
-    const dayOfWeek = getDayOfWeekStr(moment());
-    const releases = await releaseApiClient.fetch({ params: { dayOfWeek } });
-    json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = releases;
-  }
-
-  {
-    const features = await featureApiClient.fetchList({ query: {} });
-    json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
-  }
-
-  {
-    const ranking = await rankingApiClient.fetchList({ query: {} });
-    json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
-  }
+  await Promise.all([
+    async () => {
+      const dayOfWeek = getDayOfWeekStr(moment());
+      const releases = await releaseApiClient.fetch({ params: { dayOfWeek } });
+      json[unstable_serialize(releaseApiClient.fetch$$key({ params: { dayOfWeek } }))] = releases;
+    },
+    async () => {
+      const features = await featureApiClient.fetchList({ query: {} });
+      json[unstable_serialize(featureApiClient.fetchList$$key({ query: {} }))] = features;
+    },
+    async () => {
+      const ranking = await rankingApiClient.fetchList({ query: {} });
+      json[unstable_serialize(rankingApiClient.fetchList$$key({ query: {} }))] = ranking;
+    }
+  ])
 
   return json;
 }
@@ -50,8 +51,6 @@ async function createHTML({
   injectData: Record<string, unknown>;
   styleTags: string;
 }): Promise<string> {
-  const htmlContent = await fs.readFile(INDEX_HTML_PATH, 'utf-8');
-
   const content = htmlContent
     .replaceAll('<div id="root"></div>', `<div id="root">${body}</div>`)
     .replaceAll('<style id="tag"></style>', styleTags)
