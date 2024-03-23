@@ -16,7 +16,6 @@ export function useBook(...[options]: Parameters<typeof bookApiClient.fetch>) {
         name: '',
         nameRuby: '',
       },
-      ssr: true,
       suspense: true,
     }
   )
