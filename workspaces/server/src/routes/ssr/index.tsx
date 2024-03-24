@@ -24,6 +24,10 @@ async function createHTML({ body, styleTags }: { body: string; styleTags: string
 app.get('*', async (c) => {
   const sheet = new ServerStyleSheet();
 
+  c.res.headers.delete('Cache-Control')
+  c.res.headers.append('Cache-Control', 'public')
+  c.res.headers.append('Cache-Control', 'no-cache')
+
   try {
     const body = ReactDOMServer.renderToString(
       sheet.collectStyles(
