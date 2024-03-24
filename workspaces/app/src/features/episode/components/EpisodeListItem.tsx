@@ -38,7 +38,6 @@ type Props = {
 };
 
 export const EpisodeListItem: React.FC<Props> = ({ bookId, episode }) => {
-
   const imageUrl = useImage({ height: 96, imageId: episode.imageId, width: 96 });
 
   return (

@@ -1,5 +1,5 @@
 // NOTE: https://www.30secondsofcode.org/react/s/use-mutation-observer/
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export const useMutationObserver = (
   ref: React.RefObject<Element>,
@@ -8,7 +8,7 @@ export const useMutationObserver = (
     attributes: true,
     childList: true,
     subtree: true,
-  }
+  },
 ) => {
   useEffect(() => {
     const observer = new MutationObserver(callback);
@@ -17,6 +17,6 @@ export const useMutationObserver = (
     }
     return () => {
       observer.disconnect();
-    }
+    };
   }, [callback, options, ref]);
 };

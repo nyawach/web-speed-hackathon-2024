@@ -36,10 +36,10 @@ export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [rect, setRect] = useState({ height: 0, width: 0 });
   const recalc = useCallback(() => {
-    const _rect = ref.current?.getBoundingClientRect()
-    setRect({...rect, height: _rect?.height ?? 0, width: _rect?.width ?? 0 });
-  }, [rect])
-  useMutationObserver(ref, recalc)
+    const _rect = ref.current?.getBoundingClientRect();
+    setRect({ ...rect, height: _rect?.height ?? 0, width: _rect?.width ?? 0 });
+  }, [rect]);
+  useMutationObserver(ref, recalc);
   useEffect(() => {
     window.addEventListener('resize', recalc);
     return () => {

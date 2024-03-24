@@ -21,28 +21,29 @@ const schema = yup.object().shape({
       message: 'パスワードには記号を含めてください',
       test: (v) => /^(?:[^\P{Letter}&&\P{Number}]*){24,}$/v.test(v) === false,
     }),
-})
+});
 
 type FormValues = yup.InferType<typeof schema>;
 
 const EmailField: React.FC = () => {
-  const { formState: { errors}, register } = useFormContext<FormValues>()
+  const {
+    formState: { errors },
+    register,
+  } = useFormContext<FormValues>();
   return (
     <FormControl isInvalid={!!errors.email}>
       <FormLabel>メールアドレス</FormLabel>
-      <Input
-        {...register('email')}
-        bgColor="white"
-        borderColor="gray.300"
-        placeholder="メールアドレス"
-      />
+      <Input {...register('email')} bgColor="white" borderColor="gray.300" placeholder="メールアドレス" />
       {errors.email?.message && <FormErrorMessage role="alert">{errors.email?.message}</FormErrorMessage>}
     </FormControl>
   );
 };
 
 const PasswordField: React.FC = () => {
-  const { formState: { errors }, register } = useFormContext<FormValues>()
+  const {
+    formState: { errors },
+    register,
+  } = useFormContext<FormValues>();
   return (
     <FormControl isInvalid={!!errors.password}>
       <FormLabel>パスワード</FormLabel>
@@ -55,8 +56,8 @@ const PasswordField: React.FC = () => {
       />
       <FormErrorMessage role="alert">{errors.password?.message}</FormErrorMessage>
     </FormControl>
-  )
-}
+  );
+};
 
 export const LoginContent: React.FC = memo(() => {
   const login = useLogin();
@@ -70,17 +71,17 @@ export const LoginContent: React.FC = memo(() => {
     mode: 'onBlur',
     resolver: yupResolver(schema),
     reValidateMode: 'onChange',
-  })
+  });
 
   const onSubmit = (values: FormValues) => {
     login.mutate({ email: values.email, password: values.password });
-  }
+  };
 
   return (
     <FormProvider {...methods}>
       <Box
         aria-labelledby={loginContentA11yId}
-        as='form'
+        as="form"
         bg="gray.100"
         borderRadius={8}
         onSubmit={methods.handleSubmit(onSubmit)}

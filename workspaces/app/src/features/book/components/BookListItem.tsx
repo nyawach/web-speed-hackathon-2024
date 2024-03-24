@@ -30,14 +30,14 @@ const _ImgWrapper = styled.div`
 
 type Props = {
   book: {
-    description: string
-    id: string
+    description: string;
+    id: string;
     image: {
-      alt: string
-      id: string
-    }
-    name: string
-  }
+      alt: string;
+      id: string;
+    };
+    name: string;
+  };
 };
 
 export const BookListItem: React.FC<Props> = ({ book }) => {

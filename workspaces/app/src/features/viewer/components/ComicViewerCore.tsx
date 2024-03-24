@@ -105,10 +105,10 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
   const scrollViewRef = useRef<HTMLDivElement | null>(null);
 
   const recalc = useCallback(() => {
-    const _rect = containerRef.current?.getBoundingClientRect()
-    setRect({...rect, height: _rect?.height ?? 0, width: _rect?.width ?? 0 });
-  }, [rect])
-  useMutationObserver(containerRef, recalc)
+    const _rect = containerRef.current?.getBoundingClientRect();
+    setRect({ ...rect, height: _rect?.height ?? 0, width: _rect?.width ?? 0 });
+  }, [rect]);
+  useMutationObserver(containerRef, recalc);
   useEffect(() => {
     window.addEventListener('resize', recalc);
     return () => {
@@ -202,11 +202,23 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
       prevContentRect = entries[0]?.contentRect ?? null;
     };
 
-    scrollViewRef.current?.addEventListener('pointerdown', handlePointerDown, { passive: false, signal: abortController.signal });
-    scrollViewRef.current?.addEventListener('pointermove', handlePointerMove, { passive: false, signal: abortController.signal });
-    scrollViewRef.current?.addEventListener('pointerup', handlePointerUp, { passive: false, signal: abortController.signal });
+    scrollViewRef.current?.addEventListener('pointerdown', handlePointerDown, {
+      passive: false,
+      signal: abortController.signal,
+    });
+    scrollViewRef.current?.addEventListener('pointermove', handlePointerMove, {
+      passive: false,
+      signal: abortController.signal,
+    });
+    scrollViewRef.current?.addEventListener('pointerup', handlePointerUp, {
+      passive: false,
+      signal: abortController.signal,
+    });
     scrollViewRef.current?.addEventListener('scroll', handleScroll, { passive: false, signal: abortController.signal });
-    scrollViewRef.current?.addEventListener('scrollend', handleScrollEnd, { passive: false, signal: abortController.signal });
+    scrollViewRef.current?.addEventListener('scrollend', handleScrollEnd, {
+      passive: false,
+      signal: abortController.signal,
+    });
 
     const resizeObserver = new ResizeObserver(handleResize);
     scrollViewRef.current && resizeObserver.observe(scrollViewRef.current);

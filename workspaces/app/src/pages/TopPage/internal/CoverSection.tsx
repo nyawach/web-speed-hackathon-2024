@@ -43,7 +43,12 @@ export const CoverSection: React.FC = () => {
     <_Wrapper>
       <_ImageWrapper>
         {/* eslint-disable-next-line react/jsx-sort-props, @typescript-eslint/ban-ts-comment */}
-        <_Image alt="Cyber TOON" src="/assets/hero-image.webp"  decoding="sync" srcSet="/assets/hero-image.webp 1024w, /assets/hero-image-half.webp 512w" />
+        <_Image
+          alt="Cyber TOON"
+          src="/assets/hero-image.webp"
+          decoding="sync"
+          srcSet="/assets/hero-image.webp 1024w, /assets/hero-image-half.webp 512w"
+        />
       </_ImageWrapper>
       <_SearchLink href="/search">
         <SvgIcon color={Color.MONO_A} height={24} type="Search" width={24} />

@@ -20,6 +20,6 @@ const main = async () => {
       </BrowserRouter>
     </SWRConfig>,
   );
-}
+};
 
 main().catch(console.error);

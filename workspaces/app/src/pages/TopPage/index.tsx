@@ -23,7 +23,7 @@ const _FeatureCardList = styled.div`
   gap: ${Space * 2}px;
   justify-content: flex-start;
   min-height: 206px;
-`
+`;
 
 const PickupSection = () => {
   const pickupA11yId = useId();
@@ -43,8 +43,8 @@ const PickupSection = () => {
         </_FeatureCardList>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 const _RankingCardList = styled.ul`
   display: flex;
@@ -53,7 +53,7 @@ const _RankingCardList = styled.ul`
   justify-content: center;
   gap: ${Space * 2}px;
   min-height: 130px;
-`
+`;
 
 const RankingSection = () => {
   const { data: rankingList } = useRankingList({ query: {} });
@@ -73,8 +73,8 @@ const RankingSection = () => {
         </_RankingCardList>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 const ReleaseSection = () => {
   const todayStr = getDayOfWeekStr(new Date());
@@ -95,8 +95,8 @@ const ReleaseSection = () => {
         </Flex>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 const TopPage: React.FC = () => {
   return (

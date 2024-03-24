@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { compress } from 'hono/compress'
+import { compress } from 'hono/compress';
 import { cors } from 'hono/cors';
 import { HTTPException } from 'hono/http-exception';
 import { secureHeaders } from 'hono/secure-headers';
@@ -24,9 +24,11 @@ app.use(
     origin: (origin) => origin,
   }),
 );
-app.use(compress({
-  encoding: 'gzip',
-}));
+app.use(
+  compress({
+    encoding: 'gzip',
+  }),
+);
 app.use(cacheControlMiddleware);
 
 app.get('/healthz', (c) => {
