@@ -3,18 +3,25 @@ import styled from 'styled-components';
 
 import { BreakPoint, Color } from '../styles/variables';
 
-const _Container = styled.div<{ hasHeader: boolean }>`
+const _BaseContainer = styled.div`
 min-height: 100vh;
 width: 100%;
 margin: 0 auto;
 max-width: ${BreakPoint.MOBILE}px;
 display: grid;
 grid-template-columns: 100%;
-grid-template-rows: ${({ hasHeader }) => (hasHeader ? 'auto 1fr auto' : '1fr auto')};
 background-color: ${Color.MONO_A};
 border-left: 1px solid ${Color.MONO_30};
 border-right: 1px solid ${Color.MONO_30};
-`;
+`
+
+const _Container = styled(_BaseContainer)`
+  grid-template-rows: 'auto 1fr auto';
+`
+
+const _ContainerWithoutHeader = styled(_BaseContainer)`
+  grid-template-rows: '1fr auto';
+`
 
 type Props = {
   children: React.ReactNode;
@@ -22,5 +29,7 @@ type Props = {
 };
 
 export const Container: React.FC<Props> = ({ children, hasHeader = false }) => {
-  return <_Container hasHeader={hasHeader}>{children}</_Container>;
+  return hasHeader
+    ? <_Container>{children}</_Container>
+    : <_ContainerWithoutHeader>{children}</_ContainerWithoutHeader>;
 };
