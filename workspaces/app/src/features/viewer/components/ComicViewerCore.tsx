@@ -83,6 +83,7 @@ const _Wrapper = styled.div<{
   grid-auto-flow: column;
   grid-template-rows: minmax(auto, 100%);
   height: 100%;
+  min-height: 500px;
   overflow-x: scroll;
   overflow-y: hidden;
   overscroll-behavior: none;
