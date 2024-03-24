@@ -19,7 +19,7 @@ type Props = {
 
 export const ActionLayout: React.FC<Props> = ({ leftContent, rightContent }) => {
   return (
-    <Container hasHeader>
+    <Container>
       <_Header>
         <Flex align="center" justify="space-between">
           {leftContent}
