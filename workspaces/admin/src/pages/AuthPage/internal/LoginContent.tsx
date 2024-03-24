@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spacer, Stack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useId } from 'react';
+import { memo, useId } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -58,10 +58,9 @@ const PasswordField: React.FC = () => {
   )
 }
 
-export const LoginContent: React.FC = () => {
+export const LoginContent: React.FC = memo(() => {
   const login = useLogin();
   const loginContentA11yId = useId();
-  console.log('render LoginContent')
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -70,7 +69,7 @@ export const LoginContent: React.FC = () => {
     },
     mode: 'onBlur',
     resolver: yupResolver(schema),
-    reValidateMode: 'onBlur',
+    reValidateMode: 'onChange',
   })
 
   const onSubmit = (values: FormValues) => {
@@ -106,4 +105,5 @@ export const LoginContent: React.FC = () => {
       </Box>
     </FormProvider>
   );
-};
+});
+LoginContent.displayName = 'LoginContent';
