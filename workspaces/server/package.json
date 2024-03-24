@@ -2,7 +2,7 @@
   "name": "@wsh-2024/server",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
+    "build": "pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
     "build:clean": "rm -rf ./dist",
     "build:copy": "cp -r ./seeds/images ./dist/images",
     "build:tsup": "tsup --metafile",
