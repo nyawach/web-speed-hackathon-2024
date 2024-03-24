@@ -1,7 +1,6 @@
 /// <reference types="@types/serviceworker" />
 import PQueue from 'p-queue';
 
-import { jitter } from './jitter';
 import { transformJpegXLToBmp } from './transformJpegXLToBmp';
 // import { zstdFetch as fetch } from './zstdFetch';
 
@@ -30,8 +29,6 @@ self.addEventListener('fetch', (ev: FetchEvent) => {
 });
 
 async function onFetch(request: Request): Promise<Response> {
-  await jitter();
-
   const res = await fetch(request);
 
   if (res.headers.get('Content-Type') === 'image/jxl') {
