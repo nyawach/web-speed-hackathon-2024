@@ -8,9 +8,8 @@ import { ClientApp } from '@wsh-2024/app/src/index';
 import { registerServiceWorker } from './utils/registerServiceWorker';
 
 const main = async () => {
-  // NOTE: don't wait for the service worker to register
-  registerServiceWorker();
-  // await preloadImages();
+  await registerServiceWorker();
+  // preloadImages();
 
   const root = window.document.getElementById('root')!;
   ReactDOM.hydrateRoot(

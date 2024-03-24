@@ -2,6 +2,7 @@
 import PQueue from 'p-queue';
 
 import { transformJpegXLToBmp } from './transformJpegXLToBmp';
+import { jitter } from './jitter';
 // import { zstdFetch as fetch } from './zstdFetch';
 
 // ServiceWorker が負荷で落ちないように並列リクエスト数を制限する
@@ -29,6 +30,8 @@ self.addEventListener('fetch', (ev: FetchEvent) => {
 });
 
 async function onFetch(request: Request): Promise<Response> {
+  await jitter()
+
   const res = await fetch(request);
 
   if (res.headers.get('Content-Type') === 'image/jxl') {
