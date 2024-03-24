@@ -18,7 +18,6 @@ border-right: 1px solid ${Color.MONO_30};
 
 type Props = {
   children: React.ReactNode;
-
 };
 
 export const Container: React.FC<Props> = ({ children }) => {
