@@ -25,7 +25,11 @@ export const GetBookResponseSchema = createSelectSchema(book)
       }),
     episodes: createSelectSchema(episode)
       .pick({
+        chapter: true,
+        description: true,
         id: true,
+        imageId: true,
+        name: true,
       })
       .array(),
     image: createSelectSchema(image).pick({

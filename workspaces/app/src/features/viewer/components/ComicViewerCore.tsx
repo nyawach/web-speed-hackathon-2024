@@ -88,6 +88,7 @@ const _Wrapper = styled.div<{
   overscroll-behavior: none;
   padding-inline: ${({ $paddingInline }) => addUnitIfNeeded($paddingInline)};
   touch-action: none;
+  transform: translate3d(0, 0, 0);
 
   &::-webkit-scrollbar {
     display: none;

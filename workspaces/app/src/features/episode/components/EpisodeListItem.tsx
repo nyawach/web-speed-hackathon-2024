@@ -9,7 +9,6 @@ import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
-import { useEpisode } from '../hooks/useEpisode';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -29,24 +28,27 @@ const _ImgWrapper = styled.div`
 
 type Props = {
   bookId: string;
-  episodeId: string;
+  episode: {
+    chapter: number;
+    description: string;
+    id: string;
+    imageId: string;
+    name: string;
+  };
 };
 
-export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
-  const { data: episode } = useEpisode({ params: { episodeId } });
+export const EpisodeListItem: React.FC<Props> = ({ bookId, episode }) => {
 
-  const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
+  const imageUrl = useImage({ height: 96, imageId: episode.imageId, width: 96 });
 
   return (
     <_Wrapper>
       <_Link href={`/books/${bookId}/episodes/${episode.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
-          {imageUrl != null && (
-            <_ImgWrapper>
-              <Image alt={episode.name} height={96} objectFit="cover" src={imageUrl} width={96} />
-            </_ImgWrapper>
-          )}
+          <_ImgWrapper>
+            <Image alt={episode.name} height={96} objectFit="cover" src={imageUrl} width={96} />
+          </_ImgWrapper>
           <Box width="100%">
             <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
               <Flex align="center" justify="flex-start">

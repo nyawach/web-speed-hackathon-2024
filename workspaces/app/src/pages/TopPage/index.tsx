@@ -16,7 +16,12 @@ import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
 
 import { CoverSection } from './internal/CoverSection';
 
-const _FeatureCardList = styled(Flex)`
+const _FeatureCardList = styled.div`
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  gap: ${Space * 2}px;
+  justify-content: flex-start;
   min-height: 206px;
 `
 
@@ -31,7 +36,7 @@ const PickupSection = () => {
       </Text>
       <Spacer height={Space * 2} />
       <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-        <_FeatureCardList align="stretch" direction="row" gap={Space * 2} justify="flex-start">
+        <_FeatureCardList>
           {featureList.map((feature) => (
             <FeatureCard key={feature.id} book={feature.book} />
           ))}
@@ -40,6 +45,15 @@ const PickupSection = () => {
     </Box>
   )
 }
+
+const _RankingCardList = styled.ul`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: ${Space * 2}px;
+  min-height: 130px;
+`
 
 const RankingSection = () => {
   const { data: rankingList } = useRankingList({ query: {} });
@@ -51,12 +65,12 @@ const RankingSection = () => {
         ランキング
       </Text>
       <Spacer height={Space * 2} />
-      <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
-        <Flex align="center" as="ul" direction="column" justify="center">
+      <Box maxWidth="100%" overflowX="hidden">
+        <_RankingCardList>
           {rankingList.map((ranking) => (
             <RankingCard key={ranking.id} book={ranking.book} />
           ))}
-        </Flex>
+        </_RankingCardList>
       </Box>
     </Box>
   )
