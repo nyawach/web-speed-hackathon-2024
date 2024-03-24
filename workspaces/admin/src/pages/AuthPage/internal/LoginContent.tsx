@@ -12,48 +12,62 @@ const schema = yup.object().shape({
     .required('メールアドレスを入力してください')
     .test({
       message: 'メールアドレスには @ を含めてください',
-      test: (v) => /^(?:[^@]*){12,}$/v.test(v) === false,
+      test: (v) => /[@]/.test(v),
     }),
   password: yup
     .string()
     .required('パスワードを入力してください')
     .test({
       message: 'パスワードには記号を含めてください',
-      test: (v) => /^(?:[^\P{Letter}&&\P{Number}]*){24,}$/v.test(v) === false,
+      test: (v) => /[!@#$%^&*]/.test(v),
     }),
 });
 
 type FormValues = yup.InferType<typeof schema>;
 
+const Email = () => {
+  const { register } = useFormContext<FormValues>();
+  return (
+    <Input
+      {...register('email')}
+      bgColor="white"
+      borderColor="gray.300"
+      placeholder="メールアドレス"
+      type="email"
+    />
+  )
+}
+
 const EmailField: React.FC = () => {
-  const {
-    formState: { errors },
-    register,
-  } = useFormContext<FormValues>();
+  const { formState: { errors } } = useFormContext<FormValues>();
   return (
     <FormControl isInvalid={!!errors.email}>
       <FormLabel>メールアドレス</FormLabel>
-      <Input {...register('email')} bgColor="white" borderColor="gray.300" placeholder="メールアドレス" />
-      {errors.email?.message && <FormErrorMessage role="alert">{errors.email?.message}</FormErrorMessage>}
+      <Email />
+       <FormErrorMessage role="alert">{errors.email?.message}</FormErrorMessage>
     </FormControl>
   );
 };
 
+const Password = () => {
+  const { register } = useFormContext<FormValues>();
+  return (
+    <Input
+      {...register('password')}
+      bgColor="white"
+      borderColor="gray.300"
+      placeholder="パスワード"
+      type="password"
+    />
+  )
+}
+
 const PasswordField: React.FC = () => {
-  const {
-    formState: { errors },
-    register,
-  } = useFormContext<FormValues>();
+  const { formState: { errors } } = useFormContext<FormValues>();
   return (
     <FormControl isInvalid={!!errors.password}>
       <FormLabel>パスワード</FormLabel>
-      <Input
-        {...register('password')}
-        bgColor="white"
-        borderColor="gray.300"
-        placeholder="パスワード"
-        type="password"
-      />
+      <Password />
       <FormErrorMessage role="alert">{errors.password?.message}</FormErrorMessage>
     </FormControl>
   );
@@ -92,13 +106,9 @@ export const LoginContent: React.FC = memo(() => {
           <Heading as="h1" fontSize="xl" fontWeight="bold" id={loginContentA11yId}>
             ログイン
           </Heading>
-
           <EmailField />
-
           <PasswordField />
-
           <Spacer />
-
           <Button colorScheme="teal" type="submit" variant="solid">
             ログイン
           </Button>
