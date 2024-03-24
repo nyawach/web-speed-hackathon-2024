@@ -17,7 +17,6 @@ export const GetFeatureListResponseSchema = createSelectSchema(feature)
       .extend({
         author: createSelectSchema(author)
           .pick({
-            description: true,
             id: true,
             name: true,
           })
