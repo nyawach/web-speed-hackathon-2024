@@ -14,7 +14,7 @@ const _Wrapper = styled.div`
 `;
 
 const _ImageWrapper = styled.div`
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1024/ 680;
   width: 100%;
 `;
 

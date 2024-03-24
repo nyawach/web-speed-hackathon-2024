@@ -11,6 +11,8 @@ const _Canvas = styled.canvas`
   width: auto;
   flex-grow: 0;
   flex-shrink: 0;
+  aspect-ratio:  1075 / 1518;
+  scroll-snap-align: center;
 `;
 
 type Props = {
