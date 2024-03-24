@@ -108,9 +108,6 @@ importers:
       '@mui/icons-material':
         specifier: 5.15.4
         version: 5.15.4(@mui/material@5.15.4)(@types/react@18.2.0)(react@18.2.0)
-      '@mui/material':
-        specifier: 5.15.4
-        version: 5.15.4(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
       '@react-spring/web':
         specifier: 9.7.3
         version: 9.7.3(react-dom@18.2.0)(react@18.2.0)

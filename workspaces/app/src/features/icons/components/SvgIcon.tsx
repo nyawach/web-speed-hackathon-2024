@@ -1,4 +1,9 @@
-import { ArrowBack, Close, Favorite, FavoriteBorder, NavigateNext, Search } from '@mui/icons-material';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import Close from '@mui/icons-material/Close';
+import Favorite from '@mui/icons-material/Favorite';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import NavigateNext from '@mui/icons-material/NavigateNext';
+import Search from '@mui/icons-material/Search';
 
 const Icons = {
   ArrowBack,
