@@ -52,8 +52,7 @@ export const Footer: React.FC = () => {
             <Term />
           </Text>
         </_Content>
-        ,
-      </Suspense>,
+      </Suspense>
     );
   };
 
@@ -69,8 +68,7 @@ export const Footer: React.FC = () => {
             <Contact />
           </Text>
         </_Content>
-        ,
-      </Suspense>,
+      </Suspense>
     );
   };
 
@@ -103,8 +101,7 @@ export const Footer: React.FC = () => {
             <Company />
           </Text>
         </_Content>
-        ,
-      </Suspense>,
+      </Suspense>
     );
   };
 
@@ -120,8 +117,7 @@ export const Footer: React.FC = () => {
             <Overview />
           </Text>
         </_Content>
-        ,
-      </Suspense>,
+      </Suspense>
     );
   };
 
